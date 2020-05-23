@@ -25,8 +25,7 @@ const uiSchema = {
   pokemon: {
     'ui:widget': Autosuggest,
     'ui:options': {
-      // these are all properties of react-autosuggest
-      alwaysRenderSuggestions: true,
+      // all properties other than enumOptions (from schema) will be passed into Autosugest
       onSuggestionsClearRequested: () => {},
       renderSuggestion({ label }, { isHighlighted }) {
         const className =
