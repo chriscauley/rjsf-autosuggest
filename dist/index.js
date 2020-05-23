@@ -108,7 +108,7 @@ var RJSFAutosuggest = /*#__PURE__*/function (_React$Component) {
           value = _ref5$value === void 0 ? '' : _ref5$value;
       value = value.toLowerCase();
 
-      var suggestions = _this.props.options.enumOptions.filter(function (o) {
+      var suggestions = _this.getChoices().filter(function (o) {
         return o.label.toLowerCase().includes(value);
       });
 
@@ -121,13 +121,19 @@ var RJSFAutosuggest = /*#__PURE__*/function (_React$Component) {
   }
 
   _createClass(RJSFAutosuggest, [{
+    key: "getChoices",
+    value: function getChoices() {
+      return this.props.options.enumOptions || this.props.options.choices;
+    }
+  }, {
     key: "render",
     value: function render() {
       var _this$props = this.props,
           _this$props$value = _this$props.value,
           value = _this$props$value === void 0 ? '' : _this$props$value,
-          placeholder = _this$props.placeholder,
-          schema = _this$props.schema;
+          placeholder = _this$props.placeholder;
+      var options = Object.assign({}, this.props.options);
+      delete options.enumOptions;
       var inputProps = {
         onChange: this.onChange,
         placeholder: placeholder,
@@ -142,12 +148,13 @@ var RJSFAutosuggest = /*#__PURE__*/function (_React$Component) {
         renderSuggestionsContainer: this.renderSuggestionsContainer,
         renderSuggestion: this.renderSuggestion,
         inputProps: inputProps
-      }, schema.autosuggestProps));
+      }, options));
     }
   }]);
 
   return RJSFAutosuggest;
 }(_react["default"].Component);
 
+RJSFAutosuggest.config = config;
 var _default = RJSFAutosuggest;
 exports["default"] = _default;

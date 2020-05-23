@@ -12,14 +12,12 @@ export const config = {
 class RJSFAutosuggest extends React.Component {
   state = { suggestions: [] }
 
+  getChoices() {
+    return this.props.options.enumOptions || this.props.options.choices
+  }
   getSuggestionValue = (s) => s.label
   onChange = (event, { newValue }) => this.props.onChange(newValue)
-  onSuggestionsClearRequested = () => {
-    const { autosuggestProps = {} } = this.props.schema
-    if (!autosuggestProps.alwaysRenderSuggestions === 'DEBUG') {
-      this.setState({ suggestions: [] })
-    }
-  }
+  onSuggestionsClearRequested = () => this.setState({ suggestions: [] })
 
   renderSuggestionsContainer = ({ containerProps, children }) => {
     containerProps.className = config.css.container
@@ -33,14 +31,17 @@ class RJSFAutosuggest extends React.Component {
 
   onSuggestionsFetchRequested = ({ value = '' }) => {
     value = value.toLowerCase()
-    const suggestions = this.props.options.enumOptions.filter((o) =>
+    const suggestions = this.getChoices().filter((o) =>
       o.label.toLowerCase().includes(value),
     )
     this.setState({ suggestions })
   }
 
   render() {
-    const { value = '', placeholder, schema } = this.props
+    const { value = '', placeholder } = this.props
+
+    const options = Object.assign({}, this.props.options)
+    delete options.enumOptions
 
     const inputProps = {
       onChange: this.onChange,
@@ -58,10 +59,12 @@ class RJSFAutosuggest extends React.Component {
         renderSuggestionsContainer={this.renderSuggestionsContainer}
         renderSuggestion={this.renderSuggestion}
         inputProps={inputProps}
-        {...schema.autosuggestProps}
+        {...options}
       />
     )
   }
 }
+
+RJSFAutosuggest.config = config
 
 export default RJSFAutosuggest
