@@ -1,0 +1,21 @@
+/* this is minimal css necessary to make this repo work with bootstrap v4 */
+.react-autosuggest__container {
+  position: relative;
+}
+
+.react-autosuggest__suggestions-list {
+  border-radius: 0.25rem;
+  list-style: none;
+  padding: 0;
+  position: absolute;
+  width: 100%;
+}
+
+.react-autosuggest__suggestions-list .react-autosuggest__suggestion:not(:last-child) .list-group-item {
+  border-bottom: 0;
+  border-radius: 0;
+}
+
+.list-group-item-action {
+  cursor: pointer;
+}
