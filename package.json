@@ -2,7 +2,7 @@
   "name": "@unrest/core",
   "description": "Kitchen sink repo for personal react projects",
   "version": "0.0.3",
-  "main": "dist",
+  "main": "dist.js",
   "directories": {
     "lib": "dist"
   },
@@ -10,18 +10,14 @@
   "author": "chriscauley",
   "license": "MIT",
   "scripts": {
-    "build": "rm -rf dist && yarn babel src -d dist",
-    "build/docs": "rm -rf docs && yarn parcel build demo/index.html -d docs",
-    "lint": "yarn eslint src/",
+    "build": "rm -rf dist && yarn babel src -d dist; yarn build/docs",
+    "build/docs": "rm -rf docs && yarn parcel build demo/index.html -d docs --public-url /rjsf-autosuggest/",
+    "lint": "yarn eslint src/ demo",
     "test": "yarn jest",
-    "develop": "yarn parcel demo/index.html"
+    "develop": "yarn parcel demo/index.html -d .dist"
   },
   "peerDependencies": {
-    "@unrest/css": "chriscauley/unrest-css",
-    "@unrest/react-rest-hook": "chriscauley/unrest-react-rest-hook",
-    "classnames": "^2.2.6",
-    "react": ">=15",
-    "react-jsonschema-form": "^2.0.0-alpha.1"
+    "react": ">=15"
   },
   "devDependencies": {
     "@babel/cli": "^7.8.4",
@@ -40,11 +36,14 @@
     "eslint-plugin-react": "^7.19.0",
     "jest": "^25.3.0",
     "parcel": "^1.12.4",
+    "pokemon": "^2.0.2",
     "prettier": "^2.0.4",
-    "react-jsonschema-form": "^2.0.0-alpha.1",
+    "react-dom": "^16.13.1",
+    "react-router-dom": "^5.2.0",
+    "react-tabs": "^3.1.0",
     "react-test-renderer": "^16.13.1"
   },
   "dependencies": {
-    "react-tabs": "^3.1.0"
+    "react-autosuggest": "^10.0.2"
   }
 }
