@@ -12,8 +12,8 @@ import Markdown from 'react-markdown'
 import './styles.css'
 import '../bootstrap.css'
 
-const _link = (s) =>
-  `https://github.com/chriscauley/rjsf-autosuggest/blob/master/demo/${s}.js`
+const _repo = "https://github.com/chriscauley/rjsf-autosuggest"
+const _link = (s) => `${_repo}/blob/master/demo/${s}.js`
 
 class DemoStep extends React.Component {
   state = {}
@@ -22,7 +22,7 @@ class DemoStep extends React.Component {
     const { step } = this.props
     const { formData } = this.state
     return (
-      <div className="row mx-auto mb-4 p-4" style={{ maxWidth: 720 }}>
+      <div className="row mb-4 pb-4">
         <div className="col-sm-6">
           <h3>{step.title}</h3>
           <Markdown>{step.description}</Markdown>
@@ -48,7 +48,11 @@ class DemoStep extends React.Component {
 const MyComponent = () => {
   const steps = [step1, step2, step3, step4, step5]
   return (
-    <div>
+    <div className="mx-auto" style={{ maxWidth: 720 }}>
+      <h1>
+        Live demo for <a href={_repo}>rjsf-autosuggest</a>
+      </h1>
+      <hr />
       {steps.map((step) => (
         <DemoStep key={step.title} step={step} />
       ))}
