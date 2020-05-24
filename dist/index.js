@@ -67,7 +67,7 @@ var RJSFAutosuggest = /*#__PURE__*/function (_React$Component) {
     });
 
     _defineProperty(_assertThisInitialized(_this), "getSuggestionValue", function (s) {
-      return s.label;
+      return s.value;
     });
 
     _defineProperty(_assertThisInitialized(_this), "onChange", function (event, _ref) {
@@ -76,14 +76,9 @@ var RJSFAutosuggest = /*#__PURE__*/function (_React$Component) {
     });
 
     _defineProperty(_assertThisInitialized(_this), "onSuggestionsClearRequested", function () {
-      var _this$props$schema$au = _this.props.schema.autosuggestProps,
-          autosuggestProps = _this$props$schema$au === void 0 ? {} : _this$props$schema$au;
-
-      if (!autosuggestProps.alwaysRenderSuggestions === 'DEBUG') {
-        _this.setState({
-          suggestions: []
-        });
-      }
+      return _this.setState({
+        suggestions: []
+      });
     });
 
     _defineProperty(_assertThisInitialized(_this), "renderSuggestionsContainer", function (_ref2) {
@@ -93,19 +88,18 @@ var RJSFAutosuggest = /*#__PURE__*/function (_React$Component) {
       return /*#__PURE__*/_react["default"].createElement("div", containerProps, children);
     });
 
-    _defineProperty(_assertThisInitialized(_this), "renderSuggestion", function (_ref3, _ref4) {
-      var label = _ref3.label;
-      var _query = _ref4._query,
-          isHighlighted = _ref4.isHighlighted;
+    _defineProperty(_assertThisInitialized(_this), "renderSuggestion", function (suggestion, _ref3) {
+      var _query = _ref3._query,
+          isHighlighted = _ref3.isHighlighted;
       var className = config.css[isHighlighted ? 'activeItem' : 'item'];
       return /*#__PURE__*/_react["default"].createElement("div", {
         className: className
-      }, label);
+      }, suggestion.label);
     });
 
-    _defineProperty(_assertThisInitialized(_this), "onSuggestionsFetchRequested", function (_ref5) {
-      var _ref5$value = _ref5.value,
-          value = _ref5$value === void 0 ? '' : _ref5$value;
+    _defineProperty(_assertThisInitialized(_this), "onSuggestionsFetchRequested", function (_ref4) {
+      var _ref4$value = _ref4.value,
+          value = _ref4$value === void 0 ? '' : _ref4$value;
       value = value.toLowerCase();
 
       var suggestions = _this.getChoices().filter(function (o) {
@@ -126,6 +120,15 @@ var RJSFAutosuggest = /*#__PURE__*/function (_React$Component) {
       return this.props.options.enumOptions || this.props.options.choices;
     }
   }, {
+    key: "getDisplayValue",
+    value: function getDisplayValue(value) {
+      var choices = this.getChoices();
+      var choice = choices.find(function (choice) {
+        return choice.value === value;
+      });
+      return choice ? choice.label : value;
+    }
+  }, {
     key: "render",
     value: function render() {
       var _this$props = this.props,
@@ -135,9 +138,9 @@ var RJSFAutosuggest = /*#__PURE__*/function (_React$Component) {
       var options = Object.assign({}, this.props.options);
       delete options.enumOptions;
       var inputProps = {
-        onChange: this.onChange,
         placeholder: placeholder,
-        value: value,
+        onChange: this.onChange,
+        value: this.getDisplayValue(value),
         className: 'form-control'
       };
       return /*#__PURE__*/_react["default"].createElement(_reactAutosuggest["default"], _extends({

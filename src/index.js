@@ -15,7 +15,7 @@ class RJSFAutosuggest extends React.Component {
   getChoices() {
     return this.props.options.enumOptions || this.props.options.choices
   }
-  getSuggestionValue = (s) => s.label
+  getSuggestionValue = (s) => s.value
   onChange = (event, { newValue }) => this.props.onChange(newValue)
   onSuggestionsClearRequested = () => this.setState({ suggestions: [] })
 
@@ -24,9 +24,9 @@ class RJSFAutosuggest extends React.Component {
     return <div {...containerProps}>{children}</div>
   }
 
-  renderSuggestion = ({ label }, { _query, isHighlighted }) => {
+  renderSuggestion = (suggestion, { _query, isHighlighted }) => {
     const className = config.css[isHighlighted ? 'activeItem' : 'item']
-    return <div className={className}>{label}</div>
+    return <div className={className}>{suggestion.label}</div>
   }
 
   onSuggestionsFetchRequested = ({ value = '' }) => {
@@ -37,6 +37,12 @@ class RJSFAutosuggest extends React.Component {
     this.setState({ suggestions })
   }
 
+  getDisplayValue(value) {
+    const choices = this.getChoices()
+    const choice = choices.find((choice) => choice.value === value)
+    return choice ? choice.label : value
+  }
+
   render() {
     const { value = '', placeholder } = this.props
 
@@ -44,9 +50,9 @@ class RJSFAutosuggest extends React.Component {
     delete options.enumOptions
 
     const inputProps = {
-      onChange: this.onChange,
       placeholder,
-      value,
+      onChange: this.onChange,
+      value: this.getDisplayValue(value),
       className: 'form-control',
     }
 
