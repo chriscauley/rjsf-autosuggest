@@ -41,7 +41,8 @@ var config = {
   css: {
     container: 'list-group',
     item: 'list-group-item list-group-item-action',
-    activeItem: 'list-group-item list-group-item-action active'
+    activeItem: 'list-group-item list-group-item-action active',
+    input: 'form-control'
   }
 };
 exports.config = config;
@@ -67,7 +68,7 @@ var RJSFAutosuggest = /*#__PURE__*/function (_React$Component) {
     });
 
     _defineProperty(_assertThisInitialized(_this), "getSuggestionValue", function (s) {
-      return s.value;
+      return s.value || s;
     });
 
     _defineProperty(_assertThisInitialized(_this), "onChange", function (event, _ref) {
@@ -94,7 +95,7 @@ var RJSFAutosuggest = /*#__PURE__*/function (_React$Component) {
       var className = config.css[isHighlighted ? 'activeItem' : 'item'];
       return /*#__PURE__*/_react["default"].createElement("div", {
         className: className
-      }, suggestion.label);
+      }, suggestion.label || suggestion);
     });
 
     _defineProperty(_assertThisInitialized(_this), "onSuggestionsFetchRequested", function (_ref4) {
@@ -103,7 +104,7 @@ var RJSFAutosuggest = /*#__PURE__*/function (_React$Component) {
       value = value.toLowerCase();
 
       var suggestions = _this.getChoices().filter(function (o) {
-        return o.label.toLowerCase().includes(value);
+        return (o.label || o).toLowerCase().includes(value);
       });
 
       _this.setState({
@@ -137,12 +138,12 @@ var RJSFAutosuggest = /*#__PURE__*/function (_React$Component) {
           placeholder = _this$props.placeholder;
       var options = Object.assign({}, this.props.options);
       delete options.enumOptions;
-      var inputProps = {
+      var inputProps = options.inputProps || {
         placeholder: placeholder,
         onChange: this.onChange,
-        value: this.getDisplayValue(value),
-        className: 'form-control'
+        value: this.getDisplayValue(value)
       };
+      inputProps.className = config.css.input;
       return /*#__PURE__*/_react["default"].createElement(_reactAutosuggest["default"], _extends({
         suggestions: this.state.suggestions,
         onSuggestionsFetchRequested: this.onSuggestionsFetchRequested,

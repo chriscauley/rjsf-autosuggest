@@ -25,3 +25,11 @@
 .list-group-item-action {
   cursor: pointer;
 }
+
+/* these only apply to multi-section lists */
+.react-autosuggest__section-title + .react-autosuggest__suggestions-list {
+  position: static
+}
+.react-autosuggest__section-title + .react-autosuggest__suggestions-list li:first-child .list-group-item-action {
+  border-top: 0;
+}

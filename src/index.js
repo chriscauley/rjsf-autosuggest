@@ -6,6 +6,7 @@ export const config = {
     container: 'list-group',
     item: 'list-group-item list-group-item-action',
     activeItem: 'list-group-item list-group-item-action active',
+    input: 'form-control',
   },
 }
 
@@ -15,7 +16,7 @@ class RJSFAutosuggest extends React.Component {
   getChoices() {
     return this.props.options.enumOptions || this.props.options.choices
   }
-  getSuggestionValue = (s) => s.value
+  getSuggestionValue = (s) => s.value || s
   onChange = (event, { newValue }) => this.props.onChange(newValue)
   onSuggestionsClearRequested = () => this.setState({ suggestions: [] })
 
@@ -26,13 +27,13 @@ class RJSFAutosuggest extends React.Component {
 
   renderSuggestion = (suggestion, { _query, isHighlighted }) => {
     const className = config.css[isHighlighted ? 'activeItem' : 'item']
-    return <div className={className}>{suggestion.label}</div>
+    return <div className={className}>{suggestion.label || suggestion}</div>
   }
 
   onSuggestionsFetchRequested = ({ value = '' }) => {
     value = value.toLowerCase()
     const suggestions = this.getChoices().filter((o) =>
-      o.label.toLowerCase().includes(value),
+      (o.label || o).toLowerCase().includes(value),
     )
     this.setState({ suggestions })
   }
@@ -49,12 +50,13 @@ class RJSFAutosuggest extends React.Component {
     const options = Object.assign({}, this.props.options)
     delete options.enumOptions
 
-    const inputProps = {
+    const inputProps = options.inputProps || {
       placeholder,
       onChange: this.onChange,
       value: this.getDisplayValue(value),
-      className: 'form-control',
     }
+
+    inputProps.className = config.css.input
 
     return (
       <Autosuggest
