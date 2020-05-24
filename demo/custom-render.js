@@ -1,5 +1,4 @@
 import React from 'react'
-import Form from 'react-jsonschema-form'
 import Autosuggest from '../src'
 import pokemon from './pokemon.json'
 
@@ -45,12 +44,9 @@ const uiSchema = {
   },
 }
 
-const Component = () => {
-  return <Form schema={schema} uiSchema={uiSchema} />
-}
-
 export default {
-  Component,
   title: 'Custom Render',
   description: '',
+  schema,
+  uiSchema,
 }

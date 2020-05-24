@@ -5,9 +5,10 @@ const schema = {
   type: 'object',
   properties: {
     pokemon: {
-      type: 'string',
+      type: 'integer',
       title: 'Choose your pokemon',
-      enum: pokemon.map(({ name }) => name),
+      enum: pokemon.map(({ id }) => id),
+      enumNames: pokemon.map(({ name }) => name),
     },
   },
 }
@@ -22,10 +23,10 @@ const uiSchema = {
 }
 
 export default {
-  title: 'Basic',
-  path: 'basic',
+  title: 'Enum Names',
+  path: 'enum-names',
   description:
-    'A react-autosuggest component using only react-jsonschema-form options.',
+    'Using both `enum` and `enumNames` on `schema.pokemon` allows the user to type in names and the form to save ids.',
   schema,
   uiSchema,
 }
