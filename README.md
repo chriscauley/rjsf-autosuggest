@@ -112,6 +112,7 @@ Autosuggest.config.css = {
 
 If you have trouble debugging style (because the menu closes when using the element inspector), I recommend adding the following attributes to force the menu to stay open.
 
+``` javascript
 const uiSchema = {
   pokemon: {
     'ui:options': {

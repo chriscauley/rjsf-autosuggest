@@ -1,11 +1,8 @@
 {
   "name": "rjsf-autosuggest",
   "description": "Wrapper for using react-autosuggest with react-jsonschema-form",
-  "version": "0.0.3",
+  "version": "0.0.1",
   "main": "dist.js",
-  "directories": {
-    "lib": "dist"
-  },
   "repository": "https://github.com/chriscauley/rjsf-autosuggest.git",
   "author": "chriscauley",
   "license": "MIT",
@@ -13,7 +10,6 @@
     "build": "rm -rf dist && yarn babel src -d dist; yarn build/docs",
     "build/docs": "rm -rf docs && yarn parcel build demo/index.html -d docs --public-url /rjsf-autosuggest/",
     "lint": "yarn eslint src/ demo",
-    "test": "yarn jest",
     "develop": "yarn parcel demo/index.html -d .dist"
   },
   "peerDependencies": {
