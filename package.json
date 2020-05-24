@@ -1,12 +1,12 @@
 {
-  "name": "@unrest/core",
-  "description": "Kitchen sink repo for personal react projects",
+  "name": "rjsf-autosuggest",
+  "description": "Wrapper for using react-autosuggest with react-jsonschema-form",
   "version": "0.0.3",
   "main": "dist.js",
   "directories": {
     "lib": "dist"
   },
-  "repository": "https://github.com/chriscauley/unrest-core.git",
+  "repository": "https://github.com/chriscauley/rjsf-autosuggest.git",
   "author": "chriscauley",
   "license": "MIT",
   "scripts": {
