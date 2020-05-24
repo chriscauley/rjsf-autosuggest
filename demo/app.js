@@ -4,11 +4,16 @@ import { HashRouter, Route } from 'react-router-dom'
 import Form from 'react-jsonschema-form'
 
 import step1 from './basic'
-import step2 from './enum-names'
-import step3 from './custom-render'
+import step2 from './allow-custom'
+import step3 from './enum-names'
+import step4 from './custom-render'
+import step5 from './multiple-sections'
 import Markdown from 'react-markdown'
 import './styles.css'
 import '../bootstrap.css'
+
+const _link = (s) =>
+  `https://github.com/chriscauley/rjsf-autosuggest/blob/master/demo/${s}.js`
 
 class DemoStep extends React.Component {
   state = {}
@@ -21,13 +26,18 @@ class DemoStep extends React.Component {
         <div className="col-sm-6">
           <h3>{step.title}</h3>
           <Markdown>{step.description}</Markdown>
+          <a href={_link(step.path)}>View Source</a>
         </div>
         <div className="col-sm-6">
-          <Form
-            onSubmit={this.onSubmit}
-            schema={step.schema}
-            uiSchema={step.uiSchema}
-          />
+          {step.Component ? (
+            <step.Component onSubmit={this.onSubmit} />
+          ) : (
+            <Form
+              onSubmit={this.onSubmit}
+              schema={step.schema}
+              uiSchema={step.uiSchema}
+            />
+          )}
           {formData && <code>{JSON.stringify(formData)}</code>}
         </div>
       </div>
@@ -36,7 +46,7 @@ class DemoStep extends React.Component {
 }
 
 const MyComponent = () => {
-  const steps = [step1, step2, step3]
+  const steps = [step1, step2, step3, step4, step5]
   return (
     <div>
       {steps.map((step) => (

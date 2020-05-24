@@ -25,7 +25,6 @@ const uiSchema = {
     'ui:widget': Autosuggest,
     'ui:options': {
       // all properties other than enumOptions (from schema) will be passed into Autosugest
-      onSuggestionsClearRequested: () => {},
       renderSuggestion({ label }, { isHighlighted }) {
         const className =
           Autosuggest.config.css[isHighlighted ? 'activeItem' : 'item']
